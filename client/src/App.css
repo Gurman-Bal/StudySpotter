@@ -1,7 +1,7 @@
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Minimum viewport height */
+  min-height: 100vh;
 }
 
 :root {
@@ -10,7 +10,7 @@
   --background-dark: #222222;
   --text-dark: #eaecef;
   --primary-color: #0d2b4c;
-  --header-background-light: #40B4E5;
+  --header-background-light: #6EC4E8;
   --header-background-dark: #002145;
 }
 
@@ -18,6 +18,9 @@
   float: right;
 }
 
+h1 {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
 
 body {
   background-color: var(--background-light);
@@ -35,6 +38,7 @@ body.dark-mode {
 
 .dark-mode header {
   background-color: var(--header-background-dark);
+
 }
 
 .dark-mode .navbar {
@@ -51,7 +55,7 @@ body.dark-mode {
 
 header {
   background-color: var(--header-background-light);
-  height: 20px;
+  height: 25px;
   padding: 20px;
 }
 
@@ -67,12 +71,12 @@ header svg {
 }
 
 .search-bar {
-  width: 80%; 
-  padding: 10px; 
+  width: 80%;
+  padding: 10px;
   font-size: 16px;
   border: 2px solid black;
   background: white;
-  border-radius: 4px; 
+  border-radius: 4px;
   color: black;
   /* margin-bottom: 20px */
 }
@@ -86,6 +90,12 @@ header svg {
   left: -100%;
   transition: all 0.8s ease;
   z-index: 1000;
+}
+
+.leaflet-container .leaflet-touch .leaflet-retina .leaflet-fade-anim .leaflet-grab .leaflet-touch-drag .leaflet-touch-zoom .leaflet-drag-target {
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 
 .navbar.active {
@@ -116,9 +126,8 @@ ul li a:active {
 }
 
 .burger:hover {
-  background: #172b4d;
+  background: #cbd8ed;
   cursor: pointer;
-  border: 2px solid #172b4d;
   border-radius: 6px;
 }
 
@@ -146,6 +155,16 @@ ul li a:active {
   text-align: left;
 }
 
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* {chat-generated} */
 .chat-box {
@@ -206,45 +225,43 @@ ul li a:active {
 
 
 footer {
+  --text-light: #000000;
+  padding: 20px;
+  text-align: center;
+}
+
+.dark-mode footer {
   color: #fff;
   padding: 20px;
   text-align: center;
 }
 
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 28%;
-  }
-}
-
-@keyframes cursor {
-  from {
-    border-right-color: rgba(255, 255, 255, 0.75);
-  }
-
-  to {
-    border-right-color: transparent;
-  }
-}
-
 .typewriter {
   float: inline-start;
   overflow: hidden;
-  border-right: .15em solid rgba(255, 255, 255, 0.75);
   white-space: nowrap;
   margin: 0 auto;
   letter-spacing: .08em;
-  animation:
-    typewriter 4s steps(40, end) 1s 1 normal both,
-    cursor 500ms steps(40, end) infinite normal;
+
 }
 
 .title {
   height: 10px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark-mode .ubc-logo {
+  margin: auto;
+  filter: invert(1);
+}
+
+.ubc-logo {
+  margin: auto;
 }
 
 .content {
@@ -256,13 +273,29 @@ footer {
   transition: all 1s ease;
 }
 
-@media (max-width: 768px) {
+
+
+@media (max-width: 1280px) {
   .navbar {
     width: 100%;
-    left: -100%;
+    left: -250%;
+  }
+
+  .chat-box {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .map-interface {
+    height: calc(100vh - 60px);
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
   }
 
 }
+
+
 
 .map-interface {
   display: flex;
@@ -270,10 +303,12 @@ footer {
   align-items: center;
   height: 100vh;
   position: relative;
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 .map-container {
-  width: 70%; 
+  width: 70%;
   height: 100%;
 }
 
@@ -297,34 +332,32 @@ footer {
   max-width: 500px;
   width: 80%;
   color: #1e1e1e;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .details-panel h2 {
   margin-top: 0;
 }
 
-.favorite {
-  cursor: pointer;
-  margin-top: 10px;
-  color: gold;
-  font-size: 20px;
-  float: right;
-}
-
 .profile-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background: #515151;
+  /* background-color: #f9f9f9; */
+  background-color: #002145;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.profile-title {
-  font-size: 24px;
+.profile-header {
+  font-size: 1.5rem;
+  color: #40B4E5;
+  text-align: center;
   margin-bottom: 20px;
-  color: #ffffff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .input-group {
@@ -338,8 +371,8 @@ footer {
   font-size: 16px;
   border: 1px solid #333;
   border-radius: 4px;
-  background-color: #2b2b2b;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #2b2b2b;
 }
 
 .profile-input::placeholder {
@@ -381,15 +414,43 @@ p {
   margin-top: 20px;
 }
 
-.logout-button,
-.google-button {
+.google-button,
+.back-to-map-button {
   margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #97D4E9;
+  color: #002145;
+}
+
+.logout-button {
+  margin-bottom: 20px;
+  margin-right: 8px;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #97D4E9;
+  color: #002145;
 
 }
 
 .update-button {
   margin-bottom: 20px;
-  margin-top: 20px;;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #97D4E9;
+  color: #002145;
+}
+
+.moreDetailsButton {
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #5fd3fa;
+  color: #002145;
+}
+
+.user-profile-title {
+  color: white;
 }
 
 h3 {
@@ -398,4 +459,86 @@ h3 {
 
 .details-link:hover {
   color: #333;
+}
+
+
+.close-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.editButton {
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: #00A7E1;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.deleteButton,
+.cancelButton {
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: #002145;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.saveButton {
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: #88ff88;
+  color: black;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.about-page-text {
+  float: inline-start;
+  color: #40B4E5;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.panel {
+  opacity: 0;
+  width: 70%;
+  margin: auto;
+  margin-top: 50px;
+  ;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  transition: opacity 3s ease-out, transform 3s ease-out;
+  text-align: center;
+}
+
+.panel.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-text {
+  text-align: center;
+  padding: 10px;
 }

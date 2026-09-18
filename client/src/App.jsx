@@ -10,9 +10,12 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useState, useEffect } from 'react';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import io from 'socket.io-client';
+import logo from './assets/ubcspotter-logo-final.png';
 import './App.css';
+import {useAuthPersistence} from "./useAuthPersistence.js";
 
 const App = () => {
+    useAuthPersistence();
     const [displayNav, setDisplayNav] = useState(false);
     const [serverIp, setServerIp] = useState('');
     const [darkMode, setDarkMode] = useState(() => {
@@ -67,21 +70,27 @@ const App = () => {
         }
     }, [serverIp]);
 
+    const toggleNavBar = () => {
+        setDisplayNav(false);
+    };
+
 
     return (
         <div>
             <Router>
                 <header className='title'>
 
-                    <h1 className="typewriter">UBC StudySpotter</h1>
+                    <div className="logo-container">
+                    <img className="ubc-logo" src={logo} alt="studyspotter" style={{ width: '400px', height: 'auto' }} />
+                    </div>
+                </header>
+                <header className="App-header">
+                    <RxHamburgerMenu className='burger' onClick={() => setDisplayNav(!displayNav)} />
                     <button className="mode-toggle" onClick={toggleDarkMode}>
                         {darkMode ? <FiSun /> : <FiMoon />}
                     </button>
                 </header>
-                <header className="App-header">
-                    <RxHamburgerMenu className='burger' onClick={() => setDisplayNav(!displayNav)} />
-                </header>
-                <NavBar display={displayNav} />
+                <NavBar display={displayNav} hideNavBar={toggleNavBar} />
                 <div className={`content ${displayNav ? 'shifted' : ''}`}>
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -89,7 +98,7 @@ const App = () => {
                         <Route path="/room-bookings" element={<RoomBookings />} />
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
-                    <Footer />
+                    
                 </div>
             </Router>
             {/*<div id="signInDiv"></div>*/}

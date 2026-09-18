@@ -6,12 +6,7 @@ const DetailsPanel = ({ pin }) => {
         <div className="details-panel">
             <div className="details-content">
 
-                {/* <h3>{pin.title}</h3>
-                <p>{pin.details}</p> */}
                 <ChatBox pinId={pin.id} />
-                {/* <br></br>
-                <br></br>
-                <button onClick={onClose}>Close</button> */}
           
             </div>
         </div>
@@ -19,4 +14,5 @@ const DetailsPanel = ({ pin }) => {
 };
 
 export default DetailsPanel;
+
 

@@ -29,14 +29,18 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(r =>
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'https://ubcstudyspotterserver.onrender.com/auth/google/callback'
+    'https://study-spotter-google-auth.onrender.com/auth/google/callback'
 );
+
+router.get("/", (req, res) => {
+    res.status(201).json({message: "Connected to Backend!"});
+});
 
 // Define routes
 router.get('/auth/google', (req, res) => {
     const url = oauth2Client.generateAuthUrl({
         access_type: 'offline',
-        scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
+        scope: ['profile', 'email'],
         prompt: 'select_account'
     });
     res.redirect(url);
@@ -73,8 +77,6 @@ router.get('/auth/google/callback', async (req, res) => {
         console.error('Error getting tokens:', error);
         res.redirect('https://ubcstudyspotterclient.onrender.com/profile');
     }
-
-
 });
 
 router.get('/auth/logout', (req, res, next) => {
